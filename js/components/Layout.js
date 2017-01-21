@@ -1,17 +1,21 @@
 import React from "react"
 import {connect} from "react-redux"
-
 import Nav from "./Nav"
+
+import {fetchSpaces} from "../actions/espaciosActions"
 
 @connect((store)=>{
    return {
-
+      espacios: store.espacios,
    }
 })
 export default class Layout extends React.Component{
 
    constructor(){
       super();
+      this.state={
+
+      }
    }
 
    componentDidMount(){
@@ -73,6 +77,9 @@ export default class Layout extends React.Component{
                source: provicias
              });
    }
+   fetchSpaces(){
+      this.props.dispatch(fetchSpaces())
+   }
    render(){
       const textCenter={
          textAlign : 'center'
@@ -81,7 +88,8 @@ export default class Layout extends React.Component{
          marginTop: '26px',
          width: '100%'
       }
-
+      const {espacios} = this.props;
+      console.log("spaces", espacios)
 
       return (
             <div class="container">
@@ -102,7 +110,7 @@ export default class Layout extends React.Component{
                         <input type="text" class="form-control" id="donde"></input>
                      </div>
                      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <button style={buttonStyle} type="button" class="btn btn-default">Buscar</button>
+                        <button onClick={this.fetchSpaces.bind(this)} style={buttonStyle} type="button" class="btn btn-default">Buscar</button>
                      </div>
                   </div>
                </div>
