@@ -89,7 +89,16 @@ export default class Layout extends React.Component{
          width: '100%'
       }
       const {espacios} = this.props;
+      var Message;
+      if (typeof espacios !== 'undefined') {
+         if(typeof espacios.spaces !== 'undefined'){
+            if(espacios.spaces.length != 0){
+               Message = espacios.spaces[0].message;
+            }
+         }
+      }
       console.log("spaces", espacios)
+
 
       return (
             <div class="container">
@@ -114,7 +123,7 @@ export default class Layout extends React.Component{
                      </div>
                   </div>
                </div>
-
+               {Message}
 
             </div>
       );
