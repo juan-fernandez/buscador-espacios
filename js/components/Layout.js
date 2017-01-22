@@ -2,7 +2,7 @@ import React from "react"
 import {connect} from "react-redux"
 import Nav from "./Nav"
 
-import {fetchSpaces} from "../actions/espaciosActions"
+import {fetchSpaces,new_space_search} from "../actions/espaciosActions"
 
 @connect((store)=>{
    return {
@@ -14,12 +14,13 @@ export default class Layout extends React.Component{
    constructor(){
       super();
       this.state={
-
+         event_where:"",
+         event_type:"",
       }
    }
 
    componentDidMount(){
-           var provicias = [
+         /*  var provicias = [
                "Albacete",
                "Alicante/Alacant",
                "Almería",
@@ -73,13 +74,32 @@ export default class Layout extends React.Component{
                "Ceuta",
                "Melilla"
              ];
-             $( "#donde" ).autocomplete({
+             $( "#event_where" ).autocomplete({
                source: provicias
-             });
+            });*/
    }
    fetchSpaces(){
-      this.props.dispatch(fetchSpaces())
+      var new_event = {
+         event_type: this.state.event_type,
+         event_where: this.state.event_where
+      }
+
+      this.props.dispatch(new_space_search(new_event))
+
    }
+   update_search_term(event){
+      if(event.target.id == "event_type"){
+         this.setState({
+            event_type: event.target.value
+         })
+      }
+      if(event.target.id == "event_where"){
+         this.setState({
+            event_where: event.target.value
+         })
+      }
+   }
+
    render(){
       const textCenter={
          textAlign : 'center'
@@ -111,12 +131,12 @@ export default class Layout extends React.Component{
                   </div>
                   <div class="row">
                      <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <label for="evento">¿Qué evento quieres organizar?</label>
-                        <input type="text" class="form-control" id="evento"></input>
+                        <label for="event_type">¿Qué evento quieres organizar?</label>
+                        <input onChange={this.update_search_term.bind(this)} value={this.state.event_type} type="text" class="form-control" id="event_type"></input>
                      </div>
                      <div class="form-group ui-widget col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <label for="donde">¿Dónde?</label>
-                        <input type="text" class="form-control" id="donde"></input>
+                        <label for="event_where">¿Dónde?</label>
+                        <input onChange={this.update_search_term.bind(this)} value={this.state.event_where} type="text" class="form-control" id="event_where"></input>
                      </div>
                      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <button onClick={this.fetchSpaces.bind(this)} style={buttonStyle} type="button" class="btn btn-default">Buscar</button>

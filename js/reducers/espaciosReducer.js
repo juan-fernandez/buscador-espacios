@@ -2,7 +2,8 @@ export default function reducer(state={
    spaces: [],
    fetching: false,
    fetched: false,
-   error: null
+   error: null,
+   searches: []
   }, action) {
 
     switch (action.type) {
@@ -21,6 +22,28 @@ export default function reducer(state={
         }
       }
       case "FETCH_SPACE_REJECTED": {
+        return {
+          ...state,
+          fetching: false,
+          fetched: false,
+          error: action.payload
+        }
+      }
+      case "NEW_SPACE_SEARCH": {
+        return {
+          ...state,
+          fetching: true
+        }
+      }
+      case "NEW_SPACE_SEARCH_FULFILLED": {
+        return {
+          ...state,
+          fetching: false,
+          fetched: true,
+          searches: [...state.searches,action.payload]
+        }
+      }
+      case "NEW_SPACE_SEARCH_REJECTED": {
         return {
           ...state,
           fetching: false,
