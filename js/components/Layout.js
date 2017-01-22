@@ -1,6 +1,7 @@
 import React from "react"
 import {connect} from "react-redux"
 import Nav from "./Nav"
+import SearchList from "./SearchList"
 
 import {fetchSpaces,new_space_search} from "../actions/espaciosActions"
 
@@ -109,15 +110,8 @@ export default class Layout extends React.Component{
          width: '100%'
       }
       const {espacios} = this.props;
-      var Message;
-      if (typeof espacios !== 'undefined') {
-         if(typeof espacios.spaces !== 'undefined'){
-            if(espacios.spaces.length != 0){
-               Message = espacios.spaces[0].message;
-            }
-         }
-      }
-      console.log("spaces", espacios)
+
+
 
 
       return (
@@ -142,8 +136,13 @@ export default class Layout extends React.Component{
                         <button onClick={this.fetchSpaces.bind(this)} style={buttonStyle} type="button" class="btn btn-default">Buscar</button>
                      </div>
                   </div>
+
                </div>
-               {Message}
+               <div class="row">
+                  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                     <SearchList content={espacios}></SearchList>
+                  </div>
+               </div>
 
             </div>
       );
