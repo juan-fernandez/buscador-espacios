@@ -15,7 +15,7 @@ export default class Item extends React.Component {
          <div class="panel-group">
             <div class="panel panel-success">
                <div class="panel-heading">{search_where}</div>
-               <div class="panel-body">{search_where}</div>
+               <div class="panel-body">{search_type}</div>
             </div>
          </div>
       )
